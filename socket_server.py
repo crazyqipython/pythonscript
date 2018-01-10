@@ -9,21 +9,21 @@ class EchoRequestHandler(socketserver.BaseRequestHandler):
     '''
     test request handler
     '''
-    def __init__(self, request, client_address, server):
+    def __init__(self, request, client_address, server):  # This method is called when server.finish_request called
         self.logger = logging.getLogger("EchoRequestHandler")
         self.logger.debug('__init__')
         super(EchoRequestHandler, self).__init__(request, client_address, server)
 
-    def setup(self):
+    def setup(self):  # When the handle init call this function.
         self.logger.debug('setup')
         return super(EchoRequestHandler, self).setup()
 
     def handle(self):
         self.logger.debug('handle')
 
-        data = self.request.recv(1024)
+        data = self.request.recv(1024)  # Socket inner method https://docs.python.org/3.5/library/socket.html
         self.logger.debug("recv()->'%s'", data)
-        self.request.send(data)
+        self.request.send(data)  #
         return
 
     def finish(self):
